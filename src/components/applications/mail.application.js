@@ -22,74 +22,59 @@ function Mail() {
 	});
 
 	const handleChange = (event) => {
-		const target = event.target;
-		var templateMeta = emailResponse.template;
-		templateMeta[target.name] = target.value;
-		setEmailResponse({ template: templateMeta });
+		const { name, value } = event.target;
+		setEmailResponse((prev) => ({
+			template: { ...prev.template, [name]: value },
+		}));
 	};
 
 	const handleSubmit = (event) => {
-		const form = event.currentTarget;
+		event.preventDefault();
+		const serviceId = process.env.REACT_APP_EMAILJS_SERVICE;
+		const templateId = process.env.REACT_APP_EMAILJS_TEMPLATE;
 
-		if (form.checkValidity() === false) {
-			event.preventDefault();
-			event.stopPropagation();
-		} else {
-			event.preventDefault();
-			event.stopPropagation();
+		let templateParams = {
+			message: emailResponse.template.message,
+			subject: emailResponse.template.subject,
+			from: emailResponse.template.from,
+		};
 
-			const templateId = process.env.REACT_APP_EMAILJS_TEMPLATE;
-			const serviceId = process.env.REACT_APP_EMAILJS_SERVICE;
-
-			let templateParams = {
-				message: emailResponse.template.message,
-				subject: emailResponse.template.subject,
-				from: emailResponse.template.from,
-			};
-
-			if (projectAnalytics.enableAnalytics) {
-				firebase.analytics().logEvent(ANALYTICS_EVENTS.SEND_MAIL, {
-					template: templateParams,
-				});
-			}
-
-			sendFeedback(serviceId, templateId, templateParams);
+		if (projectAnalytics.enableAnalytics) {
+			firebase.analytics().logEvent(ANALYTICS_EVENTS.SEND_MAIL, { template: templateParams });
 		}
+
+		sendFeedback(serviceId, templateId, templateParams);
 	};
 
 	const sendFeedback = (serviceId, templateId, variables) => {
 		emailjs
 			.send(serviceId, templateId, variables)
 			.then(() => {
-				var templateMeta = {
-					from: "",
-					subject: "",
-					message: "",
-					response: (
-						<MessageBar
-							messageBarType={MessageBarType.success}
-							isMultiline={true}
-							dismissButtonAriaLabel="Close"
-						>
-							Message sent successfully ✅
-						</MessageBar>
-					),
-				};
-				setEmailResponse({ template: templateMeta });
+				setEmailResponse({
+					template: {
+						from: "",
+						subject: "",
+						message: "",
+						response: (
+							<MessageBar messageBarType={MessageBarType.success} isMultiline>
+								Message sent successfully ✅
+							</MessageBar>
+						),
+					},
+				});
 			})
 			.catch((err) => {
 				console.error("Email sending failed:", err);
-				var templateMeta = emailResponse.template;
-				templateMeta.response = (
-					<MessageBar
-						messageBarType={MessageBarType.error}
-						isMultiline={true}
-						dismissButtonAriaLabel="Close"
-					>
-						Sorry! Couldn't send the message 😕 Try again later.
-					</MessageBar>
-				);
-				setEmailResponse({ template: templateMeta });
+				setEmailResponse((prev) => ({
+					template: {
+						...prev.template,
+						response: (
+							<MessageBar messageBarType={MessageBarType.error} isMultiline>
+								Sorry! Couldn't send the message 😕 Try again later.
+							</MessageBar>
+						),
+					},
+				}));
 			});
 	};
 
@@ -98,8 +83,7 @@ function Mail() {
 			<form onSubmit={handleSubmit}>
 				<div className="uk-margin form-input uk-flex  uk-flex-right">
 					<button className="discard-button uk-button uk-margin-small-right uk-background-secondary font-color-white">
-						<Icon iconName="Delete" />
-						Discard
+						<Icon iconName="Delete" /> Discard
 					</button>
 					<button className="uk-button uk-button-primary" type="submit">
 						<Icon iconName="Send" /> Send
