@@ -32,7 +32,7 @@ Apps configuration: Desktop applications and their properties
 
 🎯 Getting Started
 # Clone the repository
-git clone https://github.com/yourusername/portfolio-os-theme
+git clone https://github.com/Chirag26mahajan/portfolio-os-theme
 
 # Install dependencies
 npm install
