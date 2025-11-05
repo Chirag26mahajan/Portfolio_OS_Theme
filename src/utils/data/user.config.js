@@ -1,4 +1,4 @@
-import ResumePDF from "./Srinibas_Biswal_Resume.pdf";
+import ResumePDF from "./Chirag_Gupta_Resume.pdf";
 import Chirag from "../../assets/images/data/Chirag.jpeg";
 import SpringWorks from ".././../assets/images/data/Springworks.png";
 import Diagnosis from ".././../assets/images/data/Diagnosis.png";
