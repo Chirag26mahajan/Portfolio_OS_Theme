@@ -1,4 +1,4 @@
-import ResumePDF from "./Chirag_Gupta_Resume.pdf";
+import ResumePDF from "./Chirag_Gupta_ResumePY.pdf";
 import Chirag from "../../assets/images/data/Chirag.jpeg";
 import SpringWorks from ".././../assets/images/data/Springworks.png";
 import Diagnosis from ".././../assets/images/data/Diagnosis.png";
@@ -77,6 +77,21 @@ const user = {
 	],
 	projects: [
 		{
+			projectName:"Resumind",
+			description:
+			"Built an AI-powered resume analysis platform that parses resumes, extracts key skills and experience, and matches them against job descriptions, improving resume screening accuracy and reducing manual shortlisting effort.",
+            madeWith:["React.js","Puter.js","Tailwind CSS","TypeScript","Zustand","OpenAI (GPT-4o-mini)"],
+			link: "https://ai-resume-analyzer-psi-navy.vercel.app/",
+		},
+		{
+			projectName:"SimplyFin",
+			description:
+			     "Built a smart finance platform with real time updates, smart filter, and analytics dashboards, tracking thousands of transactions with monthly and category wise insights for data driven  financial decisions",
+			madeWith:["NextJs","Firebase","Tailwind CSS","Framer Motion"],
+			link:"https://simplyfin.netlify.app/",
+		},
+
+		{
 			projectName: "Escape The Ordinary",
 			description:
 				"Rental website designed to cater to adventurers and travelers seeking unique experiences. Offering an extensive array of rental services including gears, bikes, cars, and hotels, Escape the Ordinary aims to transform ordinary journeys into extraordinary adventures.",
@@ -104,14 +119,6 @@ const user = {
 			   "front-end code visualization tool that converts code snippets into interactive live previews, enabling users to save and share projects, resulting in 30% faster debugging and feedback cycles",
 			   madeWith:["ReactJs","NodeJs","Express","MongoDB","Redux Toolkit","TypeScript"],
 			link:"https://livecodepaint.netlify.app/",
-		},
-
-		{
-			projectName:"SimplyFin",
-			description:
-			     "Built a smart finance platform with real time updates, smart filter, and analytics dashboards, tracking thousands of transactions with monthly and category wise insights for data driven  financial decisions",
-			madeWith:["NextJs","Firebase","Tailwind CSS","Framer Motion"],
-			link:"https://simplyfin.netlify.app/",
 		}
 
 	],
