@@ -19,7 +19,7 @@ function DesktopContextMenu(props) {
 		window.open(link, "_blank");
 	};
 
-	const [isModalOpen, { setTrue: showModal, setFalse: hideModal }] =
+	const [isModalOpen, { setFalse: hideModal }] =
 		useBoolean(false);
 	return (
 		<div>
